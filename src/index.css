@@ -1,0 +1,184 @@
+:root {
+  /* 70s-80s Color Palette */
+  --neon-pink: #ff0080;
+  --neon-cyan: #00ffff;
+  --neon-yellow: #ffff00;
+  --neon-purple: #8a2be2;
+  --neon-green: #39ff14;
+  --neon-orange: #ff6600;
+  
+  /* Background colors */
+  --dark-bg: #0a0a0a;
+  --gradient-bg: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f0f23 100%);
+  --card-bg: rgba(20, 20, 40, 0.8);
+  
+  /* Typography */
+  --font-retro: 'Orbitron', monospace;
+  --font-display: 'Russo One', sans-serif;
+  --font-header: 'Staatliches', cursive;
+  
+  /* Shadows and effects */
+  --neon-glow: 0 0 20px currentColor, 0 0 40px currentColor, 0 0 60px currentColor;
+  --subtle-glow: 0 0 10px rgba(255, 255, 255, 0.1);
+  
+  /* Transitions */
+  --transition-fast: 0.2s ease-in-out;
+  --transition-medium: 0.4s ease-in-out;
+  --transition-slow: 0.8s ease-in-out;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-retro);
+  background: var(--dark-bg);
+  background-image: var(--gradient-bg);
+  color: #ffffff;
+  min-height: 100vh;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--dark-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(45deg, var(--neon-pink), var(--neon-cyan));
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(45deg, var(--neon-cyan), var(--neon-pink));
+}
+
+/* Typography styles */
+h1, h2, h3 {
+  font-family: var(--font-header);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+h1 {
+  font-size: clamp(2rem, 5vw, 4rem);
+  background: linear-gradient(45deg, var(--neon-pink), var(--neon-cyan), var(--neon-yellow));
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: neon-gradient 3s ease-in-out infinite;
+  text-shadow: var(--neon-glow);
+}
+
+@keyframes neon-gradient {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* Button styles */
+button {
+  font-family: var(--font-retro);
+  background: linear-gradient(45deg, var(--neon-pink), var(--neon-purple));
+  border: 2px solid transparent;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 0;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 700;
+  position: relative;
+  overflow: hidden;
+  transition: var(--transition-medium);
+  clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+}
+
+button:hover {
+  background: linear-gradient(45deg, var(--neon-cyan), var(--neon-yellow));
+  transform: translateY(-2px);
+  box-shadow: var(--neon-glow);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+/* Geometric decoration classes */
+.geometric-bg {
+  position: relative;
+  overflow: hidden;
+}
+
+.geometric-bg::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    linear-gradient(45deg, transparent 40%, rgba(255, 0, 128, 0.1) 50%, transparent 60%),
+    linear-gradient(-45deg, transparent 40%, rgba(0, 255, 255, 0.1) 50%, transparent 60%);
+  background-size: 60px 60px;
+  animation: geometric-move 20s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes geometric-move {
+  0% { transform: translateX(-60px) translateY(-60px); }
+  100% { transform: translateX(0) translateY(0); }
+}
+
+/* Neon text effect utility */
+.neon-text {
+  color: var(--neon-cyan);
+  text-shadow: 
+    0 0 5px currentColor,
+    0 0 10px currentColor,
+    0 0 20px currentColor,
+    0 0 40px currentColor;
+  animation: neon-flicker 2s ease-in-out infinite alternate;
+}
+
+@keyframes neon-flicker {
+  from {
+    text-shadow: 
+      0 0 5px currentColor,
+      0 0 10px currentColor,
+      0 0 20px currentColor,
+      0 0 40px currentColor;
+  }
+  to {
+    text-shadow: 
+      0 0 2px currentColor,
+      0 0 5px currentColor,
+      0 0 10px currentColor,
+      0 0 20px currentColor;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Focus styles for accessibility */
+*:focus {
+  outline: 2px solid var(--neon-cyan);
+  outline-offset: 2px;
+}

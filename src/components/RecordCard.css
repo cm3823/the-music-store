@@ -1,0 +1,561 @@
+.record-card {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  transition: var(--transition-medium);
+  perspective: 1000px;
+  flex-shrink: 0;
+}
+
+.record-card:hover {
+  transform: scale(1.05) rotateY(5deg);
+}
+
+.record-card.active {
+  transform: scale(1.1);
+  z-index: 2;
+}
+
+.record-card.flipped {
+  transform: rotateY(180deg);
+}
+
+/* Record faces */
+.record-face {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.record-back {
+  transform: rotateY(180deg);
+}
+
+/* Vinyl Record Styling */
+.vinyl-record {
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center,
+    #000 0%,
+    #111 15%,
+    #000 16%,
+    #111 30%,
+    #000 31%,
+    #111 45%,
+    #000 46%,
+    #111 60%,
+    #000 61%,
+    #111 75%,
+    #000 76%,
+    #111 100%
+  );
+  border-radius: 50%;
+  position: relative;
+  box-shadow: 
+    0 0 30px rgba(0, 0, 0, 0.8),
+    inset 0 0 50px rgba(0, 0, 0, 0.5);
+  border: 3px solid var(--neon-cyan);
+  animation: vinyl-idle 10s linear infinite;
+}
+
+@keyframes vinyl-idle {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.record-card:hover .vinyl-record {
+  animation-duration: 2s;
+  box-shadow: 
+    0 0 40px rgba(0, 255, 255, 0.4),
+    inset 0 0 50px rgba(0, 0, 0, 0.5);
+}
+
+/* Album Cover */
+.album-cover {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  right: 20px;
+  bottom: 20px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  background: linear-gradient(135deg, #333, #111);
+}
+
+.album-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: var(--transition-medium);
+  border-radius: 50%;
+}
+
+.album-cover:hover img {
+  transform: scale(1.1);
+}
+
+/* Loading State */
+.image-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, #333, #666);
+}
+
+.loading-spinner {
+  width: 30px;
+  height: 30px;
+  border: 3px solid rgba(0, 255, 255, 0.3);
+  border-top: 3px solid var(--neon-cyan);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Image Placeholder */
+.image-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--neon-purple), var(--neon-pink));
+}
+
+.placeholder-content {
+  text-align: center;
+  color: white;
+}
+
+.placeholder-icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  animation: pulse-glow 2s ease-in-out infinite alternate;
+}
+
+.placeholder-text {
+  font-family: var(--font-retro);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+@keyframes pulse-glow {
+  from { text-shadow: 0 0 10px currentColor; }
+  to { text-shadow: 0 0 20px currentColor, 0 0 30px currentColor; }
+}
+
+/* Vinyl Shine Effect */
+.vinyl-shine {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    45deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.1) 50%,
+    transparent 70%
+  );
+  border-radius: 50%;
+  transform: translateX(-100%);
+  animation: shine-sweep 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes shine-sweep {
+  0%, 100% { transform: translateX(-100%); }
+  50% { transform: translateX(100%); }
+}
+
+/* Vinyl Grooves */
+.vinyl-grooves {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.groove {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  animation: groove-shimmer 4s ease-in-out infinite;
+}
+
+.groove-1 {
+  top: 30px;
+  left: 30px;
+  right: 30px;
+  bottom: 30px;
+  animation-delay: 0s;
+}
+
+.groove-2 {
+  top: 40px;
+  left: 40px;
+  right: 40px;
+  bottom: 40px;
+  animation-delay: 1s;
+}
+
+.groove-3 {
+  top: 50px;
+  left: 50px;
+  right: 50px;
+  bottom: 50px;
+  animation-delay: 2s;
+}
+
+.groove-4 {
+  top: 60px;
+  left: 60px;
+  right: 60px;
+  bottom: 60px;
+  animation-delay: 3s;
+}
+
+@keyframes groove-shimmer {
+  0%, 100% { border-color: rgba(255, 255, 255, 0.1); }
+  50% { border-color: rgba(0, 255, 255, 0.3); }
+}
+
+/* Center Label */
+.center-label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(45deg, var(--neon-yellow), var(--neon-orange));
+  border-radius: 50%;
+  border: 2px solid var(--neon-cyan);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 20px rgba(255, 255, 0, 0.4);
+  z-index: 3;
+}
+
+.label-content {
+  text-align: center;
+  font-family: var(--font-retro);
+  color: #000;
+  font-size: 0.4rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  line-height: 1.1;
+  padding: 2px;
+}
+
+.label-title {
+  margin-bottom: 2px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.label-artist {
+  font-size: 0.35rem;
+  opacity: 0.8;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Album Info Overlay */
+.album-info {
+  position: absolute;
+  bottom: -40px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: var(--transition-medium);
+  z-index: 4;
+}
+
+.record-card:hover .album-info {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.album-title {
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  color: var(--neon-cyan);
+  margin: 0 0 0.2rem 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-shadow: 0 0 10px currentColor;
+}
+
+.album-artist {
+  font-family: var(--font-retro);
+  font-size: 0.7rem;
+  color: var(--neon-pink);
+  margin: 0 0 0.2rem 0;
+  text-shadow: 0 0 8px currentColor;
+}
+
+.album-year {
+  font-family: var(--font-retro);
+  font-size: 0.6rem;
+  color: var(--neon-yellow);
+  margin: 0;
+  opacity: 0.8;
+}
+
+/* Record Controls */
+.record-controls {
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  display: flex;
+  gap: 0.5rem;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: var(--transition-medium);
+  z-index: 5;
+}
+
+.record-card:hover .record-controls {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.remove-button,
+.flip-button {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 2px solid var(--neon-cyan);
+  color: white;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  clip-path: none;
+}
+
+.remove-button {
+  background: linear-gradient(45deg, #ff4444, #cc0000);
+}
+
+.remove-button:hover {
+  background: linear-gradient(45deg, #ff6666, #ff0000);
+  transform: scale(1.1);
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+}
+
+.flip-button {
+  background: linear-gradient(45deg, var(--neon-purple), var(--neon-cyan));
+}
+
+.flip-button:hover {
+  background: linear-gradient(45deg, var(--neon-cyan), var(--neon-purple));
+  transform: scale(1.1);
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+}
+
+/* Record Back Cover */
+.back-cover {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #1a1a1a 0%, #333 100%);
+  border: 3px solid var(--neon-pink);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1rem;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.track-list {
+  flex: 1;
+}
+
+.track-list-title {
+  font-family: var(--font-header);
+  font-size: 0.8rem;
+  color: var(--neon-cyan);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 0 0 0.5rem 0;
+  text-align: center;
+  text-shadow: 0 0 8px currentColor;
+}
+
+.tracks {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.track-item {
+  display: flex;
+  gap: 0.5rem;
+  font-family: var(--font-retro);
+  font-size: 0.5rem;
+  color: #ccc;
+}
+
+.track-number {
+  color: var(--neon-yellow);
+  font-weight: 700;
+  min-width: 1.5rem;
+}
+
+.track-name {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Back Decoration */
+.back-decoration {
+  margin-top: auto;
+}
+
+.barcode {
+  text-align: center;
+}
+
+.barcode-lines {
+  display: flex;
+  gap: 1px;
+  justify-content: center;
+  margin-bottom: 0.3rem;
+}
+
+.barcode-line {
+  width: 2px;
+  height: 20px;
+  background: var(--neon-cyan);
+  opacity: 0.7;
+}
+
+.barcode-line:nth-child(odd) {
+  height: 15px;
+}
+
+.barcode-number {
+  font-family: var(--font-retro);
+  font-size: 0.4rem;
+  color: var(--neon-cyan);
+  letter-spacing: 1px;
+}
+
+/* Record Index */
+.record-index {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  width: 25px;
+  height: 25px;
+  background: linear-gradient(45deg, var(--neon-orange), var(--neon-yellow));
+  border: 2px solid var(--neon-cyan);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-retro);
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #000;
+  z-index: 4;
+  box-shadow: 0 0 15px rgba(255, 102, 0, 0.4);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .record-card {
+    width: 150px;
+    height: 150px;
+  }
+
+  .center-label {
+    width: 45px;
+    height: 45px;
+  }
+
+  .label-content {
+    font-size: 0.35rem;
+  }
+
+  .label-artist {
+    font-size: 0.3rem;
+  }
+
+  .album-title {
+    font-size: 0.8rem;
+  }
+
+  .album-artist {
+    font-size: 0.6rem;
+  }
+
+  .album-year {
+    font-size: 0.5rem;
+  }
+
+  .record-controls {
+    top: -10px;
+    right: -10px;
+  }
+
+  .remove-button,
+  .flip-button {
+    width: 25px;
+    height: 25px;
+    font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .record-card {
+    width: 120px;
+    height: 120px;
+  }
+
+  .center-label {
+    width: 35px;
+    height: 35px;
+  }
+
+  .label-content {
+    font-size: 0.3rem;
+  }
+
+  .record-index {
+    width: 20px;
+    height: 20px;
+    font-size: 0.6rem;
+  }
+}
