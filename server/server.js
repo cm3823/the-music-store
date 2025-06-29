@@ -24,8 +24,15 @@ const fastify = Fastify({
 });
 
 // Register CORS plugin
+const allowedOrigins = [
+  'http://localhost:5173',
+  'http://127.0.0.1:5173',
+  // Add your Render frontend URL here after deployment
+  process.env.FRONTEND_URL || 'https://the-music-store-frontend.onrender.com'
+];
+
 await fastify.register(cors, {
-  origin: ['http://localhost:5173', 'http://127.0.0.1:5173'], // Vite dev server
+  origin: allowedOrigins,
   credentials: true,
 });
 
@@ -60,7 +67,7 @@ fastify.setErrorHandler((error, request, reply) => {
 const start = async () => {
   try {
     const port = process.env.PORT || 3001;
-    const host = process.env.HOST || '127.0.0.1';
+    const host = process.env.HOST || '0.0.0.0'; // Changed for Render deployment
     
     await fastify.listen({ port, host });
     fastify.log.info(`🎵 The Music Store API is running on http://${host}:${port}`);

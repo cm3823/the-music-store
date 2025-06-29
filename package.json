@@ -11,7 +11,8 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "jest",
-    "server": "node server/server.js"
+    "server": "node server/server.js",
+    "start": "node server/server.js"
   },
   "dependencies": {
     "@fastify/cors": "^10.0.1",
